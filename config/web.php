@@ -7,31 +7,32 @@ $config = [
     'basePath'   => dirname(__DIR__),
     'bootstrap'  => ['log'],
     'components' => [
-        'request'      => [
+        'request'    => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'qweertre,xvx3254sawdcx66545',
             'parsers'             => [
                 'application/json' => 'yii\web\JsonParser',
             ],
         ],
-        'cache'        => [
+        'response'   => [
+            'format'  => yii\web\Response::FORMAT_JSON,
+            'charset' => 'UTF-8',
+        ],
+        'cache'      => [
             'class' => 'yii\caching\FileCache',
         ],
-        'user'         => [
+        'user'       => [
             'identityClass'   => 'app\models\User',
             'enableAutoLogin' => true,
         ],
-        'errorHandler' => [
-            'errorAction' => 'site/error',
-        ],
-        'mailer'       => [
+        'mailer'     => [
             'class'            => 'yii\swiftmailer\Mailer',
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
-        'log'          => [
+        'log'        => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets'    => [
                 [
@@ -40,8 +41,8 @@ $config = [
                 ],
             ],
         ],
-        'db'           => require(__DIR__ . '/db.php'),
-        'urlManager'   => [
+        'db'         => require(__DIR__ . '/db.php'),
+        'urlManager' => [
             'enablePrettyUrl'     => true,
             'showScriptName'      => false,
             'enableStrictParsing' => true,

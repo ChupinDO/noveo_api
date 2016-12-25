@@ -6,6 +6,56 @@
 - PHP 7.0
 - PostgreSQL 9.5
 
+## API methods:
+   
+- `/users/fetch` list of users
+    - Method: `GET`
+    - Response: `json`
+
+- `/users/create` a user
+    - Method: `POST`
+    - Response: `json`
+    - Request: `json`
+    - Request fields
+        - `email` string, required, unique
+        - `first_name` string
+        - `last_name` string
+        - `state` integer, default `0`
+        - `group_id` integer, required
+
+- `/users/id/fetch` info of a user
+    - Method: `GET`
+    - Response: `json`
+
+- `/users/id/modify` users info
+    - Method: `PUT, PATCH`
+    - Response: `json`
+    - Request: `json`
+    - Request fields
+        - `email` string
+        - `first_name` string
+        - `last_name` string
+        - `state` integer, default `0`
+        - `group_id` integer
+
+- `/groups/fetch` list of groups
+    - Method: `GET`
+    - Response: `json`
+
+- `/groups/create`a group
+    - Method: `POST`
+    - Response: `json`
+    - Request: `json`
+    - Request fields
+        - `name` string, required, unique
+
+- `/groups/id/modify` group info
+    - Method: `PUT, PATCH`
+    - Response: `json`
+    - Request: `json`
+    - Request fields
+        - `name` string
+
 ## Migrations and initial DB structure
 
 To create initial db structure please use project migrations.

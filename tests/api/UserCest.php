@@ -13,18 +13,18 @@ class UserCest
 
     public function ensureThatFetchWorks(ApiTester $I)
     {
-        $I->sendGET('/users/fetch');
+        $I->sendGET('/users');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
 
-        $I->sendGET('/users/1/fetch');
+        $I->sendGET('/users/1');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
     }
 
     public function ensureThatCreateWorks(ApiTester $I)
     {
-        $I->sendPOST('/users/create', [
+        $I->sendPOST('/users', [
             'email'      => $this->faker->email,
             'last_name'  => $this->faker->lastName,
             'first_name' => $this->faker->firstName,
@@ -37,7 +37,7 @@ class UserCest
 
     public function ensureThatModifyWorks(ApiTester $I)
     {
-        $I->sendPUT('/users/1/modify', [
+        $I->sendPUT('/users/1', [
             'email'      => $this->faker->email,
             'first_name' => $this->faker->firstName,
         ]);
@@ -47,7 +47,7 @@ class UserCest
 
     public function ensureThatUserHasNotCreatedWithNonExistedGroup(ApiTester $I)
     {
-        $I->sendPOST('/users/create', [
+        $I->sendPOST('/users', [
             'email'      => $this->faker->email,
             'last_name'  => $this->faker->lastName,
             'first_name' => $this->faker->firstName,
@@ -61,14 +61,14 @@ class UserCest
     {
         $email = $this->faker->email;
 
-        $I->sendPOST('/users/create', [
+        $I->sendPOST('/users', [
             'email'    => $email,
             'group_id' => 1,
         ]);
         $I->seeResponseCodeIs(HttpCode::CREATED);
         $I->seeResponseIsJson();
 
-        $I->sendPOST('/users/create', [
+        $I->sendPOST('/users', [
             'email'    => $email,
             'group_id' => 2,
         ]);
@@ -77,7 +77,7 @@ class UserCest
 
     public function ensureThatUserDefaultStateIsInactive(ApiTester $I)
     {
-        $I->sendPOST('/users/create', [
+        $I->sendPOST('/users', [
             'email'      => $this->faker->email,
             'first_name' => $this->faker->firstName,
             'group_id'   => 1,
@@ -87,7 +87,7 @@ class UserCest
 
     public function ensureThatUsersResponseIsCorrect(ApiTester $I)
     {
-        $I->sendGET('/users/fetch');
+        $I->sendGET('/users');
         $I->seeResponseCodeIs(HttpCode::OK);
 
         $I->seeResponseMatchesJsonType([
@@ -99,5 +99,11 @@ class UserCest
             'creation_date' => 'string:regex(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/)',
             'group_id'      => 'integer',
         ]);
+    }
+
+    public function ensureThatDeleteMethodIsNotAllowed(ApiTester $I)
+    {
+        $I->sendDELETE('/users/1');
+        $I->seeResponseCodeIs(HttpCode::METHOD_NOT_ALLOWED);
     }
 }

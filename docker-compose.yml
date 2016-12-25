@@ -13,7 +13,7 @@ services:
       - back-tier
 
   fpm:
-    build: .
+    image: chupindo/noveo_api:latest
     volumes:
       - .:/var/www/html
     depends_on:

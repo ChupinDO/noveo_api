@@ -8,11 +8,11 @@
 
 ## API methods:
    
-- `/users/fetch` list of users
+- `/users` fetch list of users
     - Method: `GET`
     - Response: `json`
 
-- `/users/create` a user
+- `/users` create a user
     - Method: `POST`
     - Response: `json`
     - Request: `json`
@@ -23,11 +23,11 @@
         - `state` integer, default `0`
         - `group_id` integer, required
 
-- `/users/id/fetch` info of a user
+- `/users/id` fetch info of a user
     - Method: `GET`
     - Response: `json`
 
-- `/users/id/modify` users info
+- `/users/id` modify users info
     - Method: `PUT, PATCH`
     - Response: `json`
     - Request: `json`
@@ -38,23 +38,27 @@
         - `state` integer, default `0`
         - `group_id` integer
 
-- `/groups/fetch` list of groups
+- `/groups` fetch list of groups
     - Method: `GET`
     - Response: `json`
 
-- `/groups/create`a group
+- `/groups` create a group
     - Method: `POST`
     - Response: `json`
     - Request: `json`
     - Request fields
         - `name` string, required, unique
 
-- `/groups/id/modify` group info
+- `/groups/id` modify group info
     - Method: `PUT, PATCH`
     - Response: `json`
     - Request: `json`
     - Request fields
         - `name` string
+        
+- `/groups/id` fetch info of a group
+    - Method: `GET`
+    - Response: `json`
 
 ## Migrations and initial DB structure
 

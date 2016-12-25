@@ -49,22 +49,12 @@ $config = [
                 [
                     'class'      => 'yii\rest\UrlRule',
                     'controller' => 'user',
-                    'patterns'   => [
-                        'GET fetch'             => 'index',
-                        'GET <id>/fetch'        => 'view',
-                        'POST create'           => 'create',
-                        'PATCH,PUT <id>/modify' => 'update',
-                    ],
+                    'except'     => ['delete'],
                 ],
                 [
                     'class'      => 'yii\rest\UrlRule',
                     'controller' => 'group',
-                    'patterns'   => [
-                        'GET fetch'             => 'index',
-                        'GET <id>/fetch'        => 'view',
-                        'POST create'           => 'create',
-                        'PATCH,PUT <id>/modify' => 'update',
-                    ],
+                    'except'     => ['delete'],
                 ],
             ],
         ],

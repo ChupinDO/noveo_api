@@ -1,0 +1,40 @@
+version: '2'
+
+services:
+  db:
+    image: postgres:9.5
+    environment:
+      - POSTGRES_DB=noveo
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - back-tier
+
+  fpm:
+    build: .
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+    networks:
+      - back-tier
+      - front-tier
+
+  web:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes_from:
+      - fpm
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - fpm
+    networks:
+      - front-tier
+
+networks:
+  back-tier:
+  front-tier:

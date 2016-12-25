@@ -1,5 +1,45 @@
 # Simple user API
 
+## Environment
+
+- Yii 2
+- PHP 7.0
+- PostgreSQL 9.5
+
+## Migrations and initial DB structure
+
+To create initial db structure please use project migrations.
+
+Run the following command in project root:
+
+ ```bash
+./yii migrate
+ ```
+
+## Deploy with Docker
+
+You can easily deploy this project in one command with [Docker](https://www.docker.com/).
+
+Please use official documentation to install [Docker Engine](https://docs.docker.com/engine/installation/) and [Docker Compose](https://docs.docker.com/compose/install/).
+
+Then run following command in project root:
+
+ ```bash
+ # start all services
+ docker-compose up
+ 
+ # and in another terminal window run database migrations
+ docker-compose run --rm fpm ./yii migrate --interactive=0
+ 
+ # check containers
+ docker ps
+ 
+ CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                         NAMES
+ 87189005f94e        nginx:latest        "nginx -g 'daemon off"   3 minutes ago       Up 3 minutes        0.0.0.0:80->80/tcp, 443/tcp   noveo_web_1
+ 25a03c0fd2ea        noveo_fpm           "docker-php-entrypoin"   3 minutes ago       Up 3 minutes        9000/tcp                      noveo_fpm_1
+ 30ddf563e3ee        postgres:9.5        "/docker-entrypoint.s"   14 minutes ago      Up 3 minutes        0.0.0.0:5432->5432/tcp        noveo_db_1
+ ```
+
 ## Tests
 
 Run the following command in project root:
